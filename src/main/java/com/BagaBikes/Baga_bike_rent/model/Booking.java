@@ -8,6 +8,7 @@ import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Getter
@@ -48,17 +49,13 @@ public class Booking {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
+    public Long getCost() {
+        if (startDate == null || endDate == null) {
+            throw new IllegalStateException("Both start and end dates must be non-null");
+        }
+        return Duration.between(startDate, endDate).toHours();
 
-    public double getCost() {
-        long durationInHours = java.time.Duration.between(startDate, endDate).toHours();
-
-        // Define hourly rate
-        double hourlyRate = 5.0;
-
-        // Calculate cost
-        double cost = durationInHours * hourlyRate;
-
-        return cost;
 
     }
+
 }

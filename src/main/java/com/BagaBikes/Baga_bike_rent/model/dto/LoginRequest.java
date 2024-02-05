@@ -9,7 +9,7 @@ public class LoginRequest {
     @NotBlank(message = "username must not be blank")
     private String username;
 
-//    @NotBlank(message = "password must not be blank")
-//    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%^&+=!]).{6,}$", message = "password must be at least 6 characters and contain a capital letter, a lowercase letter, a number, and a special character")
+    @NotBlank(message = "password must not be blank")
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%^&+=!]).{6,}$", message = "password must be at least 8 characters and contain a capital letter, a lowercase letter, a number, and a special character")
     private String password;
 }

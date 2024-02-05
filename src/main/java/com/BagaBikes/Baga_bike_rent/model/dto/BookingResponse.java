@@ -2,6 +2,7 @@ package com.BagaBikes.Baga_bike_rent.model.dto;
 
 import lombok.Data;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Data
@@ -12,7 +13,7 @@ public class BookingResponse {
     private LocalDateTime endDate;
     private Long bookingId;
     private String status;
-    private double totalCost;
+    private Long totalCost;
     private String message;
 
     public BookingResponse(String s) {

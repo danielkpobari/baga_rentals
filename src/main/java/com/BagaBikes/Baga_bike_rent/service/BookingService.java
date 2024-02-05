@@ -3,6 +3,7 @@ package com.BagaBikes.Baga_bike_rent.service;
 import com.BagaBikes.Baga_bike_rent.exception.CustomException;
 import com.BagaBikes.Baga_bike_rent.model.Bike;
 import com.BagaBikes.Baga_bike_rent.model.Booking;
+import com.BagaBikes.Baga_bike_rent.model.User;
 import com.BagaBikes.Baga_bike_rent.model.dto.BookingRequest;
 import com.BagaBikes.Baga_bike_rent.model.dto.BookingResponse;
 import com.BagaBikes.Baga_bike_rent.repository.BikeRepository;
@@ -22,19 +23,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookingService {
     private final BookingRepository bookingRepository;
-
     private final BikeRepository bikeRepository;
-
     private final UserRepository userRepository;
 
 
-    public Booking bookBike(Booking booking) {
-        return bookingRepository.save(booking);
-    }
-
-    public List<Booking> getUserBookings(Long userId) {
-        return bookingRepository.findByUserIdOrderByStartDateDesc(userId);
-    }
 
     public ResponseEntity<BookingResponse> bookBike(BookingRequest bookingRequest) throws CustomException {
         if (bookingRequest.getStartDate().isAfter(bookingRequest.getEndDate())) {
@@ -51,18 +43,22 @@ public class BookingService {
         }
 
         Booking booking = new Booking();
-        booking.setUser(userRepository.findByUsername(bookingRequest.getUsername()));
+        User user = userRepository.findByUsername(bookingRequest.getUsername());
+        booking.setUser(user);
         booking.setBike(bike);
+        booking.setStartDate(bookingRequest.getStartDate());
+        booking.setEndDate(bookingRequest.getEndDate());
         bookingRepository.save(booking);
 
-        log.info("Mr." + bookingRequest.getUsername() + "successfully booked a" + booking.getBike().getBrand() + " bike  Booking ID: {}", booking.getBookingId());
+        log.info("Mr. {} successfully booked a {} bike. Booking ID: {}", user.getUsername(), bike.getBrand(), booking.getBookingId());
 
-        BookingResponse bookingResponse = new BookingResponse("Mr." + bookingRequest.getUsername() + "successfully booked a" + booking.getBike().getBrand() + " bike");
+        BookingResponse bookingResponse = new BookingResponse("Mr. " + user.getUsername() + " successfully booked a " + bike.getBrand() + " bike");
         bookingResponse.setBookingId(booking.getBookingId());
         bookingResponse.setBrand(bike.getBrand());
         bookingResponse.setStartDate(booking.getStartDate());
         bookingResponse.setEndDate(booking.getEndDate());
         bookingResponse.setTotalCost(booking.getCost());
+
         return ResponseEntity.ok(bookingResponse);
     }
 
