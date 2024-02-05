@@ -56,6 +56,7 @@ public class BookingService {
         bookingResponse.setBookingId(booking.getBookingId());
         bookingResponse.setBrand(bike.getBrand());
         bookingResponse.setStartDate(booking.getStartDate());
+        bookingResponse.setUsername(user.getUsername());
         bookingResponse.setEndDate(booking.getEndDate());
         bookingResponse.setTotalCost(booking.getCost());
 
@@ -72,6 +73,32 @@ public class BookingService {
             }
         }
         return false;
+    }
+
+    public ResponseEntity<BookingResponse> cancelBooking(Long bookingId) throws CustomException {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new CustomException("Booking not found"));
+
+        bookingRepository.delete(booking);
+
+        log.info("Booking with ID: {} has been cancelled", bookingId);
+
+        BookingResponse bookingResponse = new BookingResponse("Booking with ID: " + bookingId + " has been cancelled");
+        bookingResponse.setBookingId(booking.getBookingId());
+        bookingResponse.setBrand(booking.getBike().getBrand());
+        bookingResponse.setStartDate(booking.getStartDate());
+        bookingResponse.setUsername(booking.getUser().getUsername());
+        bookingResponse.setEndDate(booking.getEndDate());
+        bookingResponse.setTotalCost(booking.getCost());
+
+        return ResponseEntity.ok(bookingResponse);
+    }
+
+    public ResponseEntity<?> viewUserBookings(String username) {
+        User user = userRepository.findByUsername(username);
+        List<Booking> bookings = bookingRepository.findByUserId(user.getId());
+
+        return ResponseEntity.ok(bookings);
     }
 
 }
