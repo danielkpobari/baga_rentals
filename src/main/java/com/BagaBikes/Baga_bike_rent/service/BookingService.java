@@ -67,14 +67,15 @@ public class BookingService {
     }
 
     private boolean isBikeAlreadyBooked(Bike bike, LocalDateTime startDate, LocalDateTime endDate) {
-        // Example: Assuming a hypothetical isAvailable() method in the Bike class
-        boolean isAvailable = bike.isAvailable(startDate, endDate);
-
-        if (!isAvailable) {
-            log.warn("Bike is not available for the specified time period. Bike ID: {}", bike.getId());
+        List<Booking> bookings = bookingRepository.findByBikeId(bike.getId());
+        for (Booking booking : bookings) {
+            if ((startDate.isAfter(booking.getStartDate()) && startDate.isBefore(booking.getEndDate())) ||
+                    (endDate.isAfter(booking.getStartDate()) && endDate.isBefore(booking.getEndDate())) ||
+                    (startDate.isBefore(booking.getStartDate()) && endDate.isAfter(booking.getEndDate()))) {
+                return true;
+            }
         }
-
-        return !isAvailable;
+        return false;
     }
-}
 
+}

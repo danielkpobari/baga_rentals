@@ -23,7 +23,7 @@ public class BikeController {
     private final BikeService bikeService;
     private final BookingService bookingService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/addBike")
     public ResponseEntity<BikeResponse> addBike(@Valid @RequestBody BikeRequest request) {
         return bikeService.addBike(request);
