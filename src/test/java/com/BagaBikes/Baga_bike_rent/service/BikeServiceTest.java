@@ -29,8 +29,8 @@ public class BikeServiceTest {
     public void testAddBike() {
         // Given
         BikeRequest request = new BikeRequest();
-        request.setModel("Model123");
-        request.setBrand("Brand456");
+        request.setModel("2023");
+        request.setBrand("Toyota");
         request.setColor("Red");
 
         Bike savedBike = new Bike();

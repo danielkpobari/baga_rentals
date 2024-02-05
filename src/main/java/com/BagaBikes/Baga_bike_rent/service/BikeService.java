@@ -21,24 +21,45 @@ public class BikeService {
 
 
 
-    public ResponseEntity<BikeResponse> addBike(BikeRequest request) throws CustomException {
+//    public ResponseEntity<BikeResponse> addBike(BikeRequest request) throws CustomException {
+//
+//        log.info("Adding new bike - Model: {}, Brand: {}, Color: {}", request.getModel(), request.getBrand(), request.getColor());
+//
+//        Bike bike = new Bike();
+//        bike.setModel(request.getModel());
+//        bike.setBrand(request.getBrand());
+//        bike.setColor(request.getColor());
+//        bikeRepository.save(bike);
+//
+//        log.info("Bike added successfully - ID: {}", bike.getId());
+//
+//        BikeResponse addBikeResponse = new BikeResponse();
+//        addBikeResponse.setId(bike.getId());
+//        addBikeResponse.setMessage("Bike added successfully");
+//
+//        return ResponseEntity.ok(addBikeResponse);
+//    }
+public ResponseEntity<BikeResponse> addBike(BikeRequest request) throws CustomException {
+    log.info("Adding new bike - Model: {}, Brand: {}, Color: {}", request.getModel(), request.getBrand(), request.getColor());
 
-        log.info("Adding new bike - Model: {}, Brand: {}, Color: {}", request.getModel(), request.getBrand(), request.getColor());
+    Bike bike = new Bike();
+    bike.setModel(request.getModel());
+    bike.setBrand(request.getBrand());
+    bike.setColor(request.getColor());
 
-        Bike bike = new Bike();
-        bike.setModel(request.getModel());
-        bike.setBrand(request.getBrand());
-        bike.setColor(request.getColor());
-        bikeRepository.save(bike);
+    // Save the bike and update its id
+    Bike savedBike = bikeRepository.save(bike);
+    bike.setId(savedBike.getId());
 
-        log.info("Bike added successfully - ID: {}", bike.getId());
+    log.info("Bike added successfully - ID: {}", bike.getId());
 
-        BikeResponse addBikeResponse = new BikeResponse();
-        addBikeResponse.setId(bike.getId());
-        addBikeResponse.setMessage("Bike added successfully");
+    BikeResponse addBikeResponse = new BikeResponse();
+    addBikeResponse.setId(bike.getId());
+    addBikeResponse.setMessage("Bike added successfully");
 
-        return ResponseEntity.ok(addBikeResponse);
-    }
+    return ResponseEntity.ok(addBikeResponse);
+}
+
 
 
     public List<Bike> getAllBikes() {
