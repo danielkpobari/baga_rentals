@@ -15,7 +15,7 @@ You need the following to build and run the application:
 [Maven 3.8.1]
 [SpringBoot 3.2.2]
 HOW TO USE THIS APPLICATION
-Register 2. Login 3. Add Bike [Admin] 4. Book Bike [User] 5. view all Bikes 
+Register 2. Login 3. Add Bike [Admin] 4. Book Bike [User] 5. view all Bikes [Admin] 6. view all user Booking [Admin] 
 For ease of use and to test the functionality, I have made documents of the endpoints here
 POST
 auth-Admin
