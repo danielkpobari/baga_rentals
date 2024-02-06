@@ -1,10 +1,12 @@
 package com.BagaBikes.Baga_bike_rent.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,5 +31,9 @@ public class Bike {
         @NotNull(message = "Missing required field color")
         @Column(name = "color", nullable = false)
         private String color;
+
+        @OneToMany(mappedBy = "bike")
+        @JsonIgnore
+        private List<Booking> bookings;
 
 }

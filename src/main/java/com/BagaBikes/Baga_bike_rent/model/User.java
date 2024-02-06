@@ -6,11 +6,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.*;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -37,18 +34,14 @@ public class User {
         @Column(name = "email", unique = true, nullable = false)
         private String email;
 
-//        @Column(name = "password", nullable = false)
-//        @NotNull(message = "Missing required field password")
+        @NotNull(message = "Missing required field password")
          private String password;
 
         public void setPassword(String password) {
                 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
                 this.password = passwordEncoder.encode(password);
         }
-//        @ElementCollection(targetClass = Role.class)
-//        @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-//        @Enumerated(EnumType.STRING)
-//        private List<Role> roles;
+
 
         @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
         @Enumerated(EnumType.STRING)

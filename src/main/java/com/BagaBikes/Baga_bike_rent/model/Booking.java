@@ -31,8 +31,8 @@ public class Booking {
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "bike_id")
     private Bike bike;
-
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 

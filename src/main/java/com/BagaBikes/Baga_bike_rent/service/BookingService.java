@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BookingService {
     private final BookingRepository bookingRepository;
     private final BikeRepository bikeRepository;
@@ -100,5 +102,22 @@ public class BookingService {
 
         return ResponseEntity.ok(bookings);
     }
+
+    public ResponseEntity<?> viewAllBookings() {
+        List<Booking> bookings = bookingRepository.findAll();
+
+        return ResponseEntity.ok(bookings);
+    }
+
+//    public ResponseEntity<?> viewAvailableUnBookedBikes() {
+//        List<Bike> bikes = bikeRepository.findAll();
+//        List<Booking> bookings = bookingRepository.findAll();
+//        for (Booking booking : bookings) {
+//            bikes.remove(booking.getBike());
+//        }
+//        return ResponseEntity.ok(bikes);
+//    }
+
+
 
 }

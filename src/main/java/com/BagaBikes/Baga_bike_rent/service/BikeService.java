@@ -103,4 +103,9 @@ public ResponseEntity<BikeResponse> addBike(BikeRequest request) throws CustomEx
     public Bike getBikeByBrand(String brand) {
         return bikeRepository.findByBrand(brand);
     }
+
+    public ResponseEntity<?> viewAvailableUnBookedBikes() {
+        List<Bike> availableUnBookedBikes = bikeRepository.findAvailableUnBookedBikes();
+        return ResponseEntity.ok(availableUnBookedBikes);
+    }
 }

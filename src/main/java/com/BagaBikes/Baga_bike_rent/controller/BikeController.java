@@ -45,4 +45,16 @@ public class BikeController {
     public ResponseEntity<?> viewUserBookings(@PathVariable String username) {
         return bookingService.viewUserBookings(username);
     }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/viewAvailableUnbookedBikes")
+    public ResponseEntity<?> viewAvailableUnbookedBikes() {
+        return bikeService.viewAvailableUnBookedBikes();
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/viewBookedBikes")
+    public ResponseEntity<?> viewAllBookings() {
+        return bookingService.viewAllBookings();
+    }
 }
