@@ -1,22 +1,35 @@
-Baga Rentals API
-This is a simple REST API for Booking a Bike.  
+# **Baga Rentals API**
+
+This is a simple REST API for Renting a Bike.  
 
 An Admin can add a bike, a User can book a bike and they can both see all bikes.
 
-Technologies
+## **Technologies**
+
 Java
 Maven
 Springboot
 H2 Database
-Requirements
-You need the following to build and run the application:
+
+
+### Requirements
+
+_You need the following to build and run the application:_
 
 [JDK 20]
 [Maven 3.8.1]
 [SpringBoot 3.2.2]
-HOW TO USE THIS APPLICATION
+
+
+## HOW TO USE THIS APPLICATION
+
 Register 2. Login 3. Add Bike [Admin] 4. Book Bike [User] 5. view all Bikes [Admin] 6. view all user Booking [Admin] 
+6. View available unbooked bikes [Admin] 7. view all booked bikes [Admin] 
+
+## **Documentation**
+
 For ease of use and to test the functionality, I have made documents of the endpoints here
+
 POST
 auth-Admin
 http://localhost:8080/api/auth/signin
@@ -78,4 +91,4 @@ json
   "endDate": "2024-02-10T15:45:00"
 }
 GET
-getAllBike
+getAllBikes
